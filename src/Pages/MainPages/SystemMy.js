@@ -12,8 +12,8 @@ export const SystemMy = (props) => {
         <>
             <FixContainer theme={{ ...fixContainer.mainPageFull, ...(FullOrSimple ? {} : { left: '4rem', width: 'calc( 100% - 4rem )' }) }}>
                 <div style={{
-                    height: '10rem',
-                }}>SystemMy</div>
+                    height: '10rem',color:"red"
+                }}><span>SystemMy</span></div>
                 <div style={{
                     height: '10rem',
                 }}>SystemMy</div>

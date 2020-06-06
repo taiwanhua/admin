@@ -289,10 +289,14 @@ export default {
             leftSideFullLi: {
                 paddingLeft: '0.5rem',
                 fontSize: '1rem',
+                color: '#fff',
+                hoverColor: '#ffd04b',
             },
             leftSideFullLiSub: {
                 paddingLeft: '0.5rem',
                 fontSize: '1rem',
+                color: '#fff',
+                hoverColor: '#ffd04b',
             },
             /* 
                Date   : 2020-06-03 09:45:38
@@ -302,10 +306,14 @@ export default {
             leftSideSimpleLi: {
                 paddingLeft: '0.5rem',
                 fontSize: '1rem',
+                color: '#fff',
+                hoverColor: '#ffd04b',
             },
             leftSideSimpleLiSub: {
                 paddingLeft: '0.5rem',
                 fontSize: '1rem',
+                color: '#fff',
+                hoverColor: '#ffd04b',
             },
             /* 
                Date   : 2020-06-05 15:52:04
@@ -316,7 +324,7 @@ export default {
                 paddingLeft: '0.5rem',
                 fontSize: '0.8rem',
                 color: "#606266",
-                hoverColor:"#66b1ff",
+                hoverColor: "#66b1ff",
             },
         },
 

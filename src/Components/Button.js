@@ -21,15 +21,16 @@ const IconBtn = (props) => {
 export const StyledIconButton = styled(IconBtn)`
     && {
         color: ${props => props?.theme?.color ?? '#fff'};
-        border-radius: ${props => props?.theme?.borderRadius ?? '#$@'};
-        width: ${props => props?.theme?.width ?? '#$@'};
-        height: ${props => props?.theme?.height ?? '#$@'};
-        justify-content: ${props => props?.theme?.justify ?? '#$@'};
-        position: ${props => props?.theme?.position ?? '#$@'};
-        top: ${props => props?.theme?.top ?? '#$@'};
-        left: ${props => props?.theme?.left ?? '#$@'};
-        background-color: ${props => props?.theme?.backgroundColor ?? '#$@'};
-        font-size: ${props => props?.theme?.fontSize ?? '#$@'};
+        border-radius: ${props => props?.theme?.borderRadius ?? 'initial'};
+        width: ${props => props?.theme?.width ?? 'initial'};
+        height: ${props => props?.theme?.height ?? 'initial'};
+        justify-content: ${props => props?.theme?.justify ?? 'initial'};
+        position: ${props => props?.theme?.position ?? '#$$'};
+        top: ${props => props?.theme?.top ?? 'initial'};
+        left: ${props => props?.theme?.left ?? 'initial'};
+        background-color: ${props => props?.theme?.backgroundColor ?? 'initial'};
+        font-size: ${props => props?.theme?.fontSize ?? 'initial'};
+        justify-content: ${props => props?.theme?.justify ?? 'initial'};
 
         //常用屬性
 
@@ -39,7 +40,7 @@ export const StyledIconButton = styled(IconBtn)`
     }
     
     &&:hover {
-        background-color: ${props => props?.theme?.hoverBackgroundColor ?? '#$@'};
+        background-color: ${props => props?.theme?.hoverBackgroundColor ?? 'initial'};
     }
 `;
 

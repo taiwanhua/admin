@@ -43,16 +43,16 @@ const InputBase = (props) => {
 */
 export const Input = styled(InputBase).attrs((props) => ({}))`
     //固定屬性
-    height: ${props => props?.theme?.height ?? 'unset'}; 
-    width: ${props => props?.theme?.width ?? 'unset'}; 
-    line-height: ${props => props?.theme?.height ?? 'unset'};
+    height: ${props => props?.theme?.height ?? 'initial'}; 
+    width: ${props => props?.theme?.width ?? 'initial'}; 
+    line-height: ${props => props?.theme?.height ?? 'initial'};
     padding: .2rem 0 1rem 0;
 
     input {
-        height: ${props => props?.theme?.height ? `calc( ${props.theme.height} - .8rem )` : 'unset'}; 
-        line-height: ${props => props?.theme?.height ? `calc( ${props.theme.height} - .8rem )` : 'unset'}; 
-        width: ${props => props?.theme?.width ? `calc( ${props.theme.width} - .5rem )` : 'unset'}; 
-        font-size: ${props => props?.theme?.height ? `calc( ${props.theme.height} * 0.45 )` : 'unset'}; 
+        height: ${props => props?.theme?.height ? `calc( ${props.theme.height} - .8rem )` : 'initial'}; 
+        line-height: ${props => props?.theme?.height ? `calc( ${props.theme.height} - .8rem )` : 'initial'}; 
+        width: ${props => props?.theme?.width ? `calc( ${props.theme.width} - .5rem )` : 'initial'}; 
+        font-size: ${props => props?.theme?.height ? `calc( ${props.theme.height} * 0.45 )` : 'initial'}; 
         border: 1px solid #dcdfe6;
         border-radius: 4px;
         color: #606266;
@@ -63,11 +63,11 @@ export const Input = styled(InputBase).attrs((props) => ({}))`
     }
 
     .regSpan {
-        font-size: ${props => props?.theme?.height ? `calc( ${props.theme.height} * 0.25 )` : 'unset'}; 
+        font-size: ${props => props?.theme?.height ? `calc( ${props.theme.height} * 0.25 )` : 'initial'}; 
         color: #ff6347;
         position: relative;
         left: .3rem;
-        top: ${props => props?.theme?.height ? `calc( ${props.theme.height} * -0.35 ${props.pass ? '- 3rem ' : ""})` : 'unset'}; 
+        top: ${props => props?.theme?.height ? `calc( ${props.theme.height} * -0.35 ${props.pass ? '- 3rem ' : ""})` : 'initial'}; 
     }
 `
 

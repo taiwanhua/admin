@@ -81,36 +81,36 @@ export const Login = (props) => {
 
     return (
         <>
-            {!Logined ?(
-            <Container theme={container.login}>
-                <SubContainer theme={subContainer.loginForScroll}>
+            {!Logined ? (
+                <Container theme={container.login}>
+                    <SubContainer theme={subContainer.loginForScroll}>
 
-                    <Container theme={container.loginFormContainer}>
-                        <SubContainer name={`h4`} theme={subContainer.login}>
-                            <div style={{ height: "2rem", lineHeight: "2rem", textAlign: "center", margin: "0 0 2.5rem", color: "#606266" }}>
-                                <H6>系統登錄</H6>
-                            </div>
-                            <Input theme={{ height: "2.5rem", width: "100%" }} value={ID} onChange={IDhandler} regExpResult={IDregExpResult}></Input>
-                            <Input pass theme={{ height: "2.5rem", width: "100%" }} value={Pass} onChange={Passhandler} regExpResult={PassregExpResult}></Input>
-                            <div style={{ height: "2rem", lineHeight: "2rem", textAlign: "center", color: "#606266" }}>
-                                <StyledIconButton
-                                    onClick={() => { setLogined(true); }}
-                                    theme={{ fontSize: "0.8rem", height: "inherit", width: "100%", hoverBackgroundColor: "#409eff", backgroundColor: "#409eff", borderRadius: "4px" }}>
-                                    登錄
+                        <Container theme={container.loginFormContainer}>
+                            <SubContainer name={`h4`} theme={subContainer.login}>
+                                <div style={{ height: "2rem", lineHeight: "2rem", textAlign: "center", margin: "0 0 2.5rem", color: "#606266" }}>
+                                    <H6 style={{ height: "2rem", lineHeight: "2rem", textAlign: "center", margin: "0 0 2.5rem", color: "#606266" }}>系統登錄</H6>
+                                </div>
+                                <Input theme={{ height: "2.5rem", width: "100%" }} value={ID} onChange={IDhandler} regExpResult={IDregExpResult}></Input>
+                                <Input pass theme={{ height: "2.5rem", width: "100%" }} value={Pass} onChange={Passhandler} regExpResult={PassregExpResult}></Input>
+                                <div style={{ height: "2rem", lineHeight: "2rem", textAlign: "center", color: "#606266" }}>
+                                    <StyledIconButton
+                                        onClick={() => { setLogined(true); }}
+                                        theme={{ justify: "center", fontSize: "0.8rem", height: "inherit", width: "100%", hoverBackgroundColor: "#409eff", backgroundColor: "#409eff", borderRadius: "4px" }}>
+                                        登錄
                                 </StyledIconButton>
-                            </div>
-                        </SubContainer>
+                                </div>
+                            </SubContainer>
 
-                    </Container>
-                </SubContainer>
-            </Container>
-            ):
-            <Redirect
-            to={{
-              pathname: "/",
-              //state: { from: location }
-            }}
-          />
+                        </Container>
+                    </SubContainer>
+                </Container>
+            ) :
+                <Redirect
+                    to={{
+                        pathname: "/",
+                        //state: { from: location }
+                    }}
+                />
             }
         </>
     )
