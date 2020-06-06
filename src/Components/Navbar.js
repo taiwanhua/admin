@@ -8,6 +8,8 @@ import { StyledIconButton, MenuButton } from './Button'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import { useLocation, Link } from 'react-router-dom';
 import { Ul, Li } from './List';
+import { useSwitch } from '../SelfHooks/useSwitch';
+import { LogoutFloatCard, AlertFloatCard } from './FloatCard';
 
 export const Navbar = (props) => {
 
@@ -16,6 +18,8 @@ export const Navbar = (props) => {
     const { subContainer, container, text, ul, li } = Theme;
     let location = useLocation();
     const [openMenu, setopenMenu] = useState(false);
+    const [AlertValue, AlertSwitch, AlertOpen, AlertClose] = useSwitch();
+    const [LogoutValue, LogoutSwitch, LogoutOpen, LogoutClose] = useSwitch();
 
     const navbarTitleMapping = {
         "/User/Roles": "用戶角色管理 / 角色管理",
@@ -42,9 +46,13 @@ export const Navbar = (props) => {
             <Ul onMouseEnter={() => { setopenMenu(true); }}
                 onMouseLeave={() => { setopenMenu(false); }}
                 theme={ul.navbarMenuUl}>
-                {[{ text: "我的消息", alertcount: 9 }, { text: "設置", link: "/System/My" }, { text: "退出登錄", onClick: () => { setLogined(false) } }].map((item, index) => {
+                {[
+                    { text: "我的消息", alertcount: 9, onClick: AlertOpen },
+                    { text: "設置", link: "/System/My" },
+                    { text: "退出登錄", onClick: LogoutOpen }
+                ].map((item, index) => {
                     return (
-                        <>
+                        <React.Fragment key={index}>
                             {
                                 item.link ? (
 
@@ -79,7 +87,7 @@ export const Navbar = (props) => {
                                             }}>{item.alertcount}</span>)}
                                         </Button>)
                             }
-                        </>
+                        </React.Fragment>
                     )
                 })
                 }
@@ -108,6 +116,8 @@ export const Navbar = (props) => {
                 </SubContainer>
             </Container>
             {openMenu && rendernavbarMenu()}
+            {AlertValue && <AlertFloatCard switchs={{ AlertValue, AlertSwitch, AlertOpen, Close: AlertClose }} />}
+            {LogoutValue && <LogoutFloatCard switchs={{ LogoutValue, LogoutSwitch, LogoutOpen, Close: LogoutClose }} yes={() => { setLogined(false) }} no={LogoutClose} />}
 
         </>
     )

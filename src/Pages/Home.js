@@ -3,6 +3,7 @@ import React, { useContext, useState, useRef, useEffect } from 'react';
 import { Context, FullOrSimpleContext } from '../Store/store'
 import { FixContainer } from '../Components/Container';
 import { StyledIconButton } from '../Components/Button'
+import { FloatCard } from '../Components/FloatCard'
 import MenuIcon from '@material-ui/icons/Menu';
 import { LeftSide } from '../Components/LeftSide';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -49,7 +50,6 @@ export const Home = (props) => {
         "/New/From": <NewFrom />,
         "/404": < Error404 />,
     };
-
 
     return (
         <>

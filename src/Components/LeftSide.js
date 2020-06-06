@@ -22,8 +22,8 @@ export const LeftSide = (props) => {
     const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
 
-    const [State, setState] = useState(true);
-    const [Obj, setObj] = useState(true);
+    const [State, setState] = useState(true);//控管展開選單
+    const [Obj, setObj] = useState(true);//初始值佔存控管展開選單
 
     const iconMap = {
         PeopleIcon: <PeopleIcon />,
@@ -35,8 +35,6 @@ export const LeftSide = (props) => {
         FormatLineSpacingIcon: <FormatLineSpacingIcon />
     }
 
-
-
     useEffect(() => {
         let obj = {};
         LeftSideData.forEach((item, index) => {
@@ -45,17 +43,15 @@ export const LeftSide = (props) => {
             }
         })
         //console.log(obj)
-        setState(obj);
-        setObj(obj);
-
+        setState(() => obj);
+        setObj(() => obj);
     }, [LeftSideData])
 
     useEffect(() => {
         // 切換Full或Simple重置選單
-        setState(Obj);
+        setState(() => Obj);
 
-
-    }, [FullOrSimple])
+    }, [FullOrSimple, Obj])
 
     const renderFullList = (data) => {
 
