@@ -78,7 +78,7 @@
             {
                 "icon": null,
                 "name": "預約率總覽",
-                "link": "Order/OrderList2"
+                "link": "/Order/OrderList2"
             },
             {
                 "icon": null,

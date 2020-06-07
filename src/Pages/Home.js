@@ -45,7 +45,7 @@ export const Home = (props) => {
         "/Localation/FootMaster": <LocalationFootMaster />,
         "/Localation/Shop": <LocalationShop />,
         "/Order/OrderList1": <OrderOrderList1 />,
-        "Order/OrderList2": <OrderOrderList2 />,
+        "/Order/OrderList2": <OrderOrderList2 />,
         "/Order/OrderList": <OrderOrderList />,
         "/Despatch/DespatchTable": <DespatchDespatchTable />,
         "/Despatch/DespatchList": <DespatchDespatchList />,
@@ -67,27 +67,7 @@ export const Home = (props) => {
                 <LeftSide />
                 {LeftSideData &&
                     (<>
-                        {/* 
-                           Date   : 2020-06-05 10:17:23
-                           Author : Arhua Ho
-                           Content: 亂打網址，當登入時返回404頁面；當未登入時重導向至 /Login
-                        */}
-                        <Route exact path={"*"}
-                            render={({ location }) => {
-                                //console.log(location);
-                                return (localStorage.getItem("Auth") !== null) ? (
-                                    < Error404 />
-                                ) : (
-                                        <Redirect
-                                            to={{
-                                                pathname: "/Login",
-                                                //state: { from: location }
-                                            }}
-                                        />
-                                    );
-                            }
-                            }>
-                        </Route>
+
                         {/* 
                             Date   : 2020-06-05 10:17:23
                             Author : Arhua Ho
@@ -172,6 +152,32 @@ export const Home = (props) => {
                                 //console.log(location);
                                 return (localStorage.getItem("Auth") !== null) ? (
                                     <Welcome />
+                                ) : (
+                                        <Redirect
+                                            to={{
+                                                pathname: "/Login",
+                                                //state: { from: location }
+                                            }}
+                                        />
+                                    );
+                            }
+                            }>
+                        </Route>
+                        {/* 
+                           Date   : 2020-06-05 10:17:23
+                           Author : Arhua Ho
+                           Content: 亂打網址，當登入時返回404頁面；當未登入時重導向至 /Login
+                        */}
+                        <Route exact path={"*"}
+                            render={({ location }) => {
+                                console.log(location);
+                                return (localStorage.getItem("Auth") !== null) ? (
+                                    (urlMapping.hasOwnProperty(location.pathname) ? null : <Redirect
+                                        to={{
+                                            pathname: "/404",
+                                            //state: { from: location }
+                                        }}
+                                    />)
                                 ) : (
                                         <Redirect
                                             to={{
