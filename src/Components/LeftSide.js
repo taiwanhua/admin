@@ -11,16 +11,17 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import AirportShuttleIcon from '@material-ui/icons/AirportShuttle';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import FormatLineSpacingIcon from '@material-ui/icons/FormatLineSpacing';
-
+import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
 import { Ul, Li } from './List';
 import { Link } from 'react-router-dom';
 
 
 export const LeftSide = (props) => {
 
-    const { Theme, setTheme, LeftSideData, setLeftSideData } = useContext(Context);
+    const { Theme, setTheme } = useContext(Context);
     const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
+    const [LeftSideData, setLeftSideData] = useState([]);
 
     const [State, setState] = useState(true);//控管展開選單
     const [Obj, setObj] = useState(true);//初始值佔存控管展開選單
@@ -34,6 +35,12 @@ export const LeftSide = (props) => {
         ViewListIcon: <ViewListIcon />,
         FormatLineSpacingIcon: <FormatLineSpacingIcon />
     }
+
+    useEffect(() => {
+        if (getItem("LeftSideData") !== null) {
+            setLeftSideData(JSON.parse(getItem("LeftSideData")));
+        }
+    }, [setLeftSideData])
 
     useEffect(() => {
         let obj = {};
@@ -57,34 +64,33 @@ export const LeftSide = (props) => {
 
         return (
             <Ul theme={ul.leftSideFullUl}>
-                {
-                    data.map((item, index) => {
-                        return (
-                            <React.Fragment key={item.name} >
-                                <Link to={item.link ?? '#'} style={{ textDecoration: "none" }}>
-                                    <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { setState({ ...State, [item.name]: !State[item.name] }); }}>
-                                        {iconMap[item.icon]}
-                                        <Li theme={li.leftSideFullLi} >{item.name}</Li>
-                                    </StyledIconButton>
-                                </Link>
-                                {item.sub && (
-                                    <Ul theme={{ ...ul.leftSideFullUlSub, ...(State[item.name] ? { display: "block" } : { display: "none" }) }}>
-                                        {item.sub.map((item, index) => {
-                                            return (
-                                                <Link key={item.name} to={item.link} style={{ textDecoration: "none" }}>
-                                                    <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { console.log('dd') }}>
-                                                        {iconMap[item.icon]}
-                                                        <Li theme={li.leftSideFullLiSub} >{item.name}</Li>
-                                                    </StyledIconButton>
-                                                </Link>
-                                            )
-                                        })}
-                                    </Ul>
-                                )
-                                }
-                            </React.Fragment>
-                        )
-                    })
+                {data.map((item, index) => {
+                    return (
+                        <React.Fragment key={item.name} >
+                            <Link to={item.link ?? '#'} style={{ textDecoration: "none" }}>
+                                <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { setState({ ...State, [item.name]: !State[item.name] }); }}>
+                                    {iconMap[item.icon]}
+                                    <Li theme={li.leftSideFullLi} >{item.name}</Li>
+                                </StyledIconButton>
+                            </Link>
+                            {item.sub && (
+                                <Ul theme={{ ...ul.leftSideFullUlSub, ...(State[item.name] ? { display: "block" } : { display: "none" }) }}>
+                                    {item.sub.map((item, index) => {
+                                        return (
+                                            <Link key={item.name} to={item.link} style={{ textDecoration: "none" }}>
+                                                <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { }}>
+                                                    {iconMap[item.icon]}
+                                                    <Li theme={li.leftSideFullLiSub} >{item.name}</Li>
+                                                </StyledIconButton>
+                                            </Link>
+                                        )
+                                    })}
+                                </Ul>
+                            )
+                            }
+                        </React.Fragment>
+                    )
+                })
                 }
             </Ul>
         )

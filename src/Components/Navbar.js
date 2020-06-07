@@ -6,10 +6,11 @@ import { Context, FullOrSimpleContext } from '../Store/store'
 import { H6 } from './Text';
 import { StyledIconButton, MenuButton } from './Button'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import { Ul, Li } from './List';
 import { useSwitch } from '../SelfHooks/useSwitch';
 import { LogoutFloatCard, AlertFloatCard } from './FloatCard';
+import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
 
 export const Navbar = (props) => {
 
@@ -20,6 +21,7 @@ export const Navbar = (props) => {
     const [openMenu, setopenMenu] = useState(false);
     const [AlertValue, AlertSwitch, AlertOpen, AlertClose] = useSwitch();
     const [LogoutValue, LogoutSwitch, LogoutOpen, LogoutClose] = useSwitch();
+    let history = useHistory();
 
     const navbarTitleMapping = {
         "/User/Roles": "用戶角色管理 / 角色管理",
@@ -127,7 +129,7 @@ export const Navbar = (props) => {
                     { text: "Alert6", level: "fatal" },
                 ]}
                 switchs={{ AlertValue, AlertSwitch, AlertOpen, Close: AlertClose }} />}
-            {LogoutValue && <LogoutFloatCard switchs={{ LogoutValue, LogoutSwitch, LogoutOpen, Close: LogoutClose }} yes={() => { setLogined(false) }} no={LogoutClose} />}
+            {LogoutValue && <LogoutFloatCard switchs={{ LogoutValue, LogoutSwitch, LogoutOpen, Close: LogoutClose }} yes={() => { removeItem('Auth'); removeItem('LeftSideData'); history.push('/Login') }} no={LogoutClose} />}
 
         </>
     )

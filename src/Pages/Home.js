@@ -24,14 +24,16 @@ import { DespatchDespatchTable } from './MainPages/DespatchDespatchTable';
 import { DespatchDespatchList } from './MainPages/DespatchDespatchList';
 import { NewFrom } from './MainPages/NewFrom';
 import { SystemMy } from './MainPages/SystemMy';
+import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
 
 export const Home = (props) => {
 
     const [FullOrSimple, setFullOrSimple] = useState(true);//供判斷開關側邊欄
     const [RouteMapFunctionTitle, setRouteMapFunctionTitle] = useState("歡迎頁");//初始登入為歡迎頁
 
-    const { Theme, setTheme, LeftSideData, setLeftSideData, Logined, setLogined } = useContext(Context);
+    const { Theme, setTheme, Logined, setLogined } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton } = Theme;
+    const [LeftSideData, setLeftSideData] = useState([]);
 
     const urlMapping = {
         "/User/Roles": <UserRoles />,
@@ -51,6 +53,13 @@ export const Home = (props) => {
         "/404": < Error404 />,
     };
 
+    useEffect(() => {
+        if (getItem("LeftSideData") !== null) {
+            setLeftSideData(JSON.parse(getItem("LeftSideData")));
+        }
+
+    }, [setLeftSideData])
+
     return (
         <>
             < FullOrSimpleContext.Provider value={{ FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle }}>
@@ -66,13 +75,13 @@ export const Home = (props) => {
                         <Route exact path={"*"}
                             render={({ location }) => {
                                 //console.log(location);
-                                return Logined ? (
+                                return (localStorage.getItem("Auth") !== null) ? (
                                     < Error404 />
                                 ) : (
                                         <Redirect
                                             to={{
                                                 pathname: "/Login",
-                                                state: { from: location }
+                                                //state: { from: location }
                                             }}
                                         />
                                     );
@@ -93,13 +102,13 @@ export const Home = (props) => {
                                         render={({ location }) => {
                                             //console.log("/User/Roles");
                                             //console.log(location);
-                                            return Logined ? (
+                                            return (localStorage.getItem("Auth") !== null) ? (
                                                 urlMapping[item.link]
                                             ) : (
                                                     <Redirect
                                                         to={{
                                                             pathname: "/Login",
-                                                            state: { from: location }
+                                                            //state: { from: location }
                                                         }}
                                                     />
                                                 );
@@ -113,13 +122,13 @@ export const Home = (props) => {
                                             render={({ location }) => {
                                                 //console.log("/User/Roles");
                                                 //console.log(location);
-                                                return Logined ? (
+                                                return (localStorage.getItem("Auth") !== null) ? (
                                                     urlMapping[item.link]
                                                 ) : (
                                                         <Redirect
                                                             to={{
                                                                 pathname: "/Login",
-                                                                state: { from: location }
+                                                                //state: { from: location }
                                                             }}
                                                         />
                                                     );
@@ -139,13 +148,13 @@ export const Home = (props) => {
 
                             render={({ location }) => {
                                 //console.log(location);
-                                return Logined ? (
+                                return (localStorage.getItem("Auth") !== null) ? (
                                     <SystemMy />
                                 ) : (
                                         <Redirect
                                             to={{
                                                 pathname: "/Login",
-                                                state: { from: location }
+                                                //state: { from: location }
                                             }}
                                         />
                                     );
@@ -161,13 +170,13 @@ export const Home = (props) => {
 
                             render={({ location }) => {
                                 //console.log(location);
-                                return Logined ? (
+                                return (localStorage.getItem("Auth") !== null) ? (
                                     <Welcome />
                                 ) : (
                                         <Redirect
                                             to={{
                                                 pathname: "/Login",
-                                                state: { from: location }
+                                                //state: { from: location }
                                             }}
                                         />
                                     );
