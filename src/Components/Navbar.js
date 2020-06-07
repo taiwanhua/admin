@@ -116,7 +116,17 @@ export const Navbar = (props) => {
                 </SubContainer>
             </Container>
             {openMenu && rendernavbarMenu()}
-            {AlertValue && <AlertFloatCard switchs={{ AlertValue, AlertSwitch, AlertOpen, Close: AlertClose }} />}
+            {AlertValue && <AlertFloatCard
+                title={"未讀訊息"}
+                alerts={[
+                    { text: "Alert1", level: "error" },
+                    { text: "Alert2" },
+                    { text: "Alert3", level: "debug" },
+                    { text: "Alert4", level: "info" },
+                    { text: "Alert5", level: "warn" },
+                    { text: "Alert6", level: "fatal" },
+                ]}
+                switchs={{ AlertValue, AlertSwitch, AlertOpen, Close: AlertClose }} />}
             {LogoutValue && <LogoutFloatCard switchs={{ LogoutValue, LogoutSwitch, LogoutOpen, Close: LogoutClose }} yes={() => { setLogined(false) }} no={LogoutClose} />}
 
         </>

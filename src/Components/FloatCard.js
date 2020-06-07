@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FixContainer, Container, SubContainer } from './Container';
 import CloseIcon from '@material-ui/icons/Close';
 import { StyledIconButton } from './Button';
 import { Button } from '@material-ui/core';
+import { Alert } from './Alert';
 
+//#region LogoutFloatCard樣式
 const logoutFixContainerTheme = {
     position: 'fixed',
     height: '100%',
@@ -56,6 +58,7 @@ const logoutCardButtonTheme = {
     height: "3rem",
     alignItems: "center"
 }
+//#endregion
 
 export const LogoutFloatCard = (props) => {
 
@@ -100,6 +103,7 @@ export const LogoutFloatCard = (props) => {
     )
 }
 
+//#region AlertFloatCard 樣式
 const alertFixContainerTheme = {
     position: 'fixed',
     height: '100%',
@@ -122,7 +126,7 @@ const alertContainerTheme = {
 }
 
 const alertCardSubContainerTheme = {
-    width: "25rem",
+    width: "13.5rem",
     //height: "100%",
     boxShadow: "0 2px 12px 0 #0000001a",
     backgroundColor: "#fff",
@@ -146,14 +150,13 @@ const alertCardContentTheme = {
     alignItems: "center"
 }
 
-const alertCardButtonTheme = {
+//#endregion
 
-    direction: "row",
-    justify: "flex-end",
-    height: "3rem",
-    alignItems: "center"
-}
-
+/* 
+   Date   : 2020-06-07 13:17:28
+   Author : Arhua Ho
+   Content: Alert有五種樣式，透過level設置，level={ "debug" || "info" || "warn" || "error" || "fatal" }
+*/
 export const AlertFloatCard = (props) => {
 
     return (
@@ -164,7 +167,7 @@ export const AlertFloatCard = (props) => {
                         theme={props?.alertCardSubContainerTheme ?? alertCardSubContainerTheme}>
                         <Container theme={props?.alertCardTitleTheme ?? alertCardTitleTheme}>
                             <SubContainer theme={{ padding: "0 0 0 .5rem", color: "#b1b3b7" }}>
-                                未讀訊息
+                                {props.title}
                             </SubContainer>
                             <SubContainer >
                                 <StyledIconButton theme={{ color: "#b1b3b7" }} onClick={props?.switchs?.Close ?? null}>
@@ -175,15 +178,13 @@ export const AlertFloatCard = (props) => {
 
                         {/* 遍歷訊息 */}
                         <Container theme={props?.alertCardContentTheme ?? alertCardContentTheme}>
-                            <SubContainer theme={{ occupy: 12, padding: "0 0 0 1rem", color: "#606266" }}>
-                                確認退出嗎?
-                            </SubContainer>
-                            <SubContainer theme={{ occupy: 12, padding: "0 0 0 1rem", color: "#606266" }}>
-                                確認退出嗎?
-                            </SubContainer>
-                            <SubContainer theme={{ occupy: 12, padding: "0 0 0 1rem", color: "#606266" }}>
-                                確認退出嗎?
-                            </SubContainer>
+                            {props.alerts.map((item, index) => {
+                                return (
+                                    <SubContainer key={index} theme={{ occupy: 12, padding: "0 1rem 0", color: "#606266" }}>
+                                        <Alert item={item} />
+                                    </SubContainer>
+                                )
+                            })}
                         </Container>
 
                     </SubContainer>

@@ -21,13 +21,16 @@ const IconBtn = (props) => {
 export const StyledIconButton = styled(IconBtn)`
     && {
         color: ${props => props?.theme?.color ?? '#fff'};
+        margin: ${props => props?.theme?.margin ?? '#'};
+        padding: ${props => props?.theme?.padding ?? '#'};
         border-radius: ${props => props?.theme?.borderRadius ?? 'initial'};
         width: ${props => props?.theme?.width ?? 'initial'};
         height: ${props => props?.theme?.height ?? 'initial'};
         justify-content: ${props => props?.theme?.justify ?? 'initial'};
-        position: ${props => props?.theme?.position ?? '#$$'};
+        position: ${props => props?.theme?.position ?? '#'};
         top: ${props => props?.theme?.top ?? 'initial'};
         left: ${props => props?.theme?.left ?? 'initial'};
+        right: ${props => props?.theme?.right ?? 'initial'};
         background-color: ${props => props?.theme?.backgroundColor ?? 'initial'};
         font-size: ${props => props?.theme?.fontSize ?? 'initial'};
         justify-content: ${props => props?.theme?.justify ?? 'initial'};
