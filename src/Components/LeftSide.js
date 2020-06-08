@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef, useCallback } from 'react';
 import { Context, FullOrSimpleContext } from '../Store/store'
 import { FixContainer } from '../Components/Container';
 import { StyledIconButton } from '../Components/Button'
@@ -14,14 +14,16 @@ import FormatLineSpacingIcon from '@material-ui/icons/FormatLineSpacing';
 import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
 import { Ul, Li } from './List';
 import { Link } from 'react-router-dom';
+import { setItemSession, getItemSession, removeItemSession, clearSession } from '../SelfHooks/handleSessionStorage';
 
 
 export const LeftSide = (props) => {
 
     const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, openedTab } = useContext(FullOrSimpleContext);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
     const [LeftSideData, setLeftSideData] = useState([]);
+
 
     const [State, setState] = useState(true);//控管展開選單
     const [Obj, setObj] = useState(true);//初始值佔存控管展開選單
@@ -60,6 +62,24 @@ export const LeftSide = (props) => {
 
     }, [FullOrSimple, Obj])
 
+    /* 
+       Date   : 2020-06-08 16:46:30
+       Author : Arhua Ho
+       Content: 檢查是否已存在分頁列中
+    */
+    const checkoutExist = useCallback(
+        (arr, pushItem) => {
+            let res = true;
+            arr.forEach((item, index) => {
+                if (item.link === pushItem.link) {
+                    res = false;
+                }
+            })
+            return res;
+        },
+        []
+    )
+
     const renderFullList = (data) => {
 
         return (
@@ -68,7 +88,15 @@ export const LeftSide = (props) => {
                     return (
                         <React.Fragment key={item.name} >
                             <Link to={item.link ?? '#'} style={{ textDecoration: "none" }}>
-                                <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { setState({ ...State, [item.name]: !State[item.name] }); }}>
+                                <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => {
+                                    if (item.link) {
+                                        if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
+                                            openedTab.push({ name: item.name, link: item.link });
+                                            setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                        }
+                                    }
+                                    setState({ ...State, [item.name]: !State[item.name] });
+                                }}>
                                     {iconMap[item.icon]}
                                     <Li theme={li.leftSideFullLi} >{item.name}</Li>
                                 </StyledIconButton>
@@ -78,7 +106,12 @@ export const LeftSide = (props) => {
                                     {item.sub.map((item, index) => {
                                         return (
                                             <Link key={item.name} to={item.link} style={{ textDecoration: "none" }}>
-                                                <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { }}>
+                                                <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => {
+                                                    if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
+                                                        openedTab.push({ name: item.name, link: item.link });
+                                                        setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                                    }
+                                                }}>
                                                     {iconMap[item.icon]}
                                                     <Li theme={li.leftSideFullLiSub} >{item.name}</Li>
                                                 </StyledIconButton>
@@ -104,7 +137,15 @@ export const LeftSide = (props) => {
                     return (
                         <Link key={item.name} to={'#'} style={{ textDecoration: "none" }}>
                             <StyledIconButton theme={styledIconButton.leftSideStyledIconButton}
-                                onClick={() => { setState({ ...State, [item.name]: true }); }}
+                                onClick={() => {
+                                    if (item.link) {
+                                        if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
+                                            openedTab.push({ name: item.name, link: item.link });
+                                            setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                        }
+                                    }
+                                    setState({ ...State, [item.name]: true });
+                                }}
                                 //onMouseEnter={() => { setState({ ...State, [item.name]: true });  }}
                                 onMouseLeave={() => { setState({ ...State, [item.name]: false }); }}
                             >
@@ -132,7 +173,12 @@ export const LeftSide = (props) => {
                             {item.sub && item.sub.map((item, index) => {
                                 return (
                                     <Link key={item.name} to={item.link} style={{ textDecoration: "none" }}>
-                                        <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => { }}>
+                                        <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => {
+                                            if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
+                                                openedTab.push({ name: item.name, link: item.link });
+                                                setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                            }
+                                        }}>
                                             {iconMap[item.icon]}
                                             <Li theme={li.leftSideFullLi} >{item.name}</Li>
                                         </StyledIconButton>

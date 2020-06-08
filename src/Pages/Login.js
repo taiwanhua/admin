@@ -41,7 +41,6 @@ export const Login = (props) => {
             .then((PreResult) => {
                 setItem("LeftSideData", JSON.stringify(PreResult))
                 setItem("Auth", true)
-                console.log("sdfsssssss")
                 history.push("/");
                 return "登入成功"
             })

@@ -1,5 +1,5 @@
 import { Navbar } from '../Components/Navbar';
-import React, { useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState, useRef, useEffect, useCallback } from 'react';
 import { Context, FullOrSimpleContext } from '../Store/store'
 import { FixContainer } from '../Components/Container';
 import { StyledIconButton } from '../Components/Button'
@@ -25,6 +25,8 @@ import { DespatchDespatchList } from './MainPages/DespatchDespatchList';
 import { NewFrom } from './MainPages/NewFrom';
 import { SystemMy } from './MainPages/SystemMy';
 import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
+import { setItemSession, getItemSession, removeItemSession, clearSession } from '../SelfHooks/handleSessionStorage';
+import { useArray } from '../SelfHooks/useArray';
 
 export const Home = (props) => {
 
@@ -34,6 +36,7 @@ export const Home = (props) => {
     const { Theme, setTheme, Logined, setLogined } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton } = Theme;
     const [LeftSideData, setLeftSideData] = useState([]);
+    const openedTab = useArray([]);//放置分頁列以開啟分頁，放置Context
 
     const urlMapping = {
         "/User/Roles": <UserRoles />,
@@ -50,19 +53,30 @@ export const Home = (props) => {
         "/Despatch/DespatchTable": <DespatchDespatchTable />,
         "/Despatch/DespatchList": <DespatchDespatchList />,
         "/New/From": <NewFrom />,
+        "/System/My": <SystemMy />,
+        "/": <Welcome />,
         "/404": < Error404 />,
     };
+
 
     useEffect(() => {
         if (getItem("LeftSideData") !== null) {
             setLeftSideData(JSON.parse(getItem("LeftSideData")));
         }
-
     }, [setLeftSideData])
+
+    useEffect(() => {
+        if (getItemSession("OpenedTab") !== null) {
+            openedTab.push(JSON.parse(getItemSession("OpenedTab")));
+        } else {
+            setItemSession("OpenedTab", JSON.stringify([{ name:"歡迎頁",link:"/"}]))
+            openedTab.push(JSON.parse(getItemSession("OpenedTab")));
+        }
+    }, [])
 
     return (
         <>
-            < FullOrSimpleContext.Provider value={{ FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle }}>
+            < FullOrSimpleContext.Provider value={{ FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, openedTab }}>
                 <Navbar />
                 <LeftSide />
                 {LeftSideData &&
@@ -170,7 +184,7 @@ export const Home = (props) => {
                         */}
                         <Route exact path={"*"}
                             render={({ location }) => {
-                                console.log(location);
+                                //console.log(location);
                                 return (localStorage.getItem("Auth") !== null) ? (
                                     (urlMapping.hasOwnProperty(location.pathname) ? null : <Redirect
                                         to={{

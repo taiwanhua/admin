@@ -122,6 +122,7 @@ export default {
                 overflowY: 'scroll',
                 overflowX: 'scroll',
                 backgroundColor: '#fff',
+                scrollHeight: ".8rem",
             },
             /* 
                Date   : 2020-06-03 09:44:59
@@ -148,6 +149,25 @@ export default {
                 overflowY: 'scroll',
                 overflowX: 'scroll',
                 backgroundColor: '#fff',
+            },
+            /* 
+               Date   : 2020-06-08 00:07:29
+               Author : Arhua Ho
+               Content: 分頁列樣式
+            */
+            tabBarFull: {
+                padding: "0 0 0 .5rem",
+                overflowX: "scroll",
+                overflowY: 'hidden',
+                whiteSpace: "nowrap",
+                position: "fixed",
+                top: "4rem",
+                height: "2rem",
+                right: "0rem",
+                width: "inherit",
+                backgroundColor: "#f0f0f0",
+                scrollHeight: ".3rem",
+                scrollUnhoverBackgroundColor: "#f0f0f000"
             },
         },
         /* 
@@ -327,7 +347,19 @@ export default {
                 hoverColor: "#66b1ff",
             },
         },
-
+        tab: {
+            tabBarFullTab: {
+                border: "1px solid #d8dce5",
+                color: "#495060",
+                backgroundColor: "#fff",
+                fontSize: ".8rem",
+                height: "1.5rem",
+                width: "10rem",
+                display: "inline-block",
+                textAlign: "center",
+                margin: ".1rem .5rem 0 0 "
+            }
+        }
 
     },
     themeOther: {

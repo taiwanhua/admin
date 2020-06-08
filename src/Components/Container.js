@@ -180,12 +180,16 @@ export const FixContainer = styled.div.attrs((props) => ({}))`
     background-color: ${props => props?.theme?.backgroundColor ?? 'initial'};
     overflow-y: ${props => props?.theme?.overflowY ?? 'initial'};
     overflow-x: ${props => props?.theme?.overflowX ?? 'initial'};
+
+    padding: ${props => props?.theme?.padding ?? '#$'};
     z-index: ${props => props?.theme?.zIndex ?? 'initial'};
+    white-space : ${props => props?.theme?.whiteSpace ?? 'initial'};
     min-width: 0; //修復 x 方向
 
     //滾動條美化
     ::-webkit-scrollbar {
         width: 0.5em;
+        height: ${props => props?.theme?.scrollHeight ?? 'initial'}; 
         }
     ::-webkit-scrollbar-track {
         -webkit-border-radius: 10px;
@@ -193,6 +197,12 @@ export const FixContainer = styled.div.attrs((props) => ({}))`
         margin:0px 0.1rem 5px 0;
         }
     ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        background: ${props => props?.theme?.scrollUnhoverBackgroundColor ?? '#9093994d'};
+        }
+
+    &:hover::-webkit-scrollbar-thumb {
         -webkit-border-radius: 4px;
         border-radius: 4px;
         background: #9093994d;
