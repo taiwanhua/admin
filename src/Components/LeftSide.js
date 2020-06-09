@@ -20,7 +20,7 @@ import { setItemSession, getItemSession, removeItemSession, clearSession } from 
 export const LeftSide = (props) => {
 
     const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, openedTab } = useContext(FullOrSimpleContext);
+    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
     const [LeftSideData, setLeftSideData] = useState([]);
 
@@ -90,9 +90,8 @@ export const LeftSide = (props) => {
                             <Link to={item.link ?? '#'} style={{ textDecoration: "none" }}>
                                 <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => {
                                     if (item.link) {
-                                        if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
-                                            openedTab.push({ name: item.name, link: item.link });
-                                            setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                        if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
+                                            setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                         }
                                     }
                                     setState({ ...State, [item.name]: !State[item.name] });
@@ -107,9 +106,8 @@ export const LeftSide = (props) => {
                                         return (
                                             <Link key={item.name} to={item.link} style={{ textDecoration: "none" }}>
                                                 <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => {
-                                                    if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
-                                                        openedTab.push({ name: item.name, link: item.link });
-                                                        setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                                    if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
+                                                        setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                                     }
                                                 }}>
                                                     {iconMap[item.icon]}
@@ -139,9 +137,8 @@ export const LeftSide = (props) => {
                             <StyledIconButton theme={styledIconButton.leftSideStyledIconButton}
                                 onClick={() => {
                                     if (item.link) {
-                                        if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
-                                            openedTab.push({ name: item.name, link: item.link });
-                                            setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                        if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
+                                            setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                         }
                                     }
                                     setState({ ...State, [item.name]: true });
@@ -174,9 +171,8 @@ export const LeftSide = (props) => {
                                 return (
                                     <Link key={item.name} to={item.link} style={{ textDecoration: "none" }}>
                                         <StyledIconButton theme={styledIconButton.leftSideStyledIconButton} onClick={() => {
-                                            if (checkoutExist(openedTab.value, { name: item.name, link: item.link })) {
-                                                openedTab.push({ name: item.name, link: item.link });
-                                                setItemSession("OpenedTab", JSON.stringify([...openedTab.value, { name: item.name, link: item.link }]));
+                                            if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
+                                                setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                             }
                                         }}>
                                             {iconMap[item.icon]}

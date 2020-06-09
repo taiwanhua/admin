@@ -36,7 +36,7 @@ export const Home = (props) => {
     const { Theme, setTheme, Logined, setLogined } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton } = Theme;
     const [LeftSideData, setLeftSideData] = useState([]);
-    const openedTab = useArray([]);//放置分頁列以開啟分頁，放置Context
+    // const openedTab = useArray([]);//放置分頁列以開啟分頁，放置Context   ，要刪除
 
     const urlMapping = {
         "/User/Roles": <UserRoles />,
@@ -58,6 +58,10 @@ export const Home = (props) => {
         "/404": < Error404 />,
     };
 
+    //防止登入時 OpenedTab 未設置
+    if (sessionStorage.getItem("OpenedTab") === null) {
+        setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }]))
+    }
 
     useEffect(() => {
         if (getItem("LeftSideData") !== null) {
@@ -65,18 +69,9 @@ export const Home = (props) => {
         }
     }, [setLeftSideData])
 
-    useEffect(() => {
-        if (getItemSession("OpenedTab") !== null) {
-            openedTab.push(JSON.parse(getItemSession("OpenedTab")));
-        } else {
-            setItemSession("OpenedTab", JSON.stringify([{ name:"歡迎頁",link:"/"}]))
-            openedTab.push(JSON.parse(getItemSession("OpenedTab")));
-        }
-    }, [])
-
     return (
         <>
-            < FullOrSimpleContext.Provider value={{ FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, openedTab }}>
+            < FullOrSimpleContext.Provider value={{ FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle }}>
                 <Navbar />
                 <LeftSide />
                 {LeftSideData &&

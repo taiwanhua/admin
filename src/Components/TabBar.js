@@ -5,15 +5,18 @@ import { Button } from '@material-ui/core';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import { Context, FullOrSimpleContext } from '../Store/store';
 import { Ul, Li } from './List';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { setItemSession, getItemSession, removeItemSession, clearSession } from '../SelfHooks/handleSessionStorage';
+import { useSwitch } from '../SelfHooks/useSwitch';
 
 export const TabBar = (props) => {
 
     const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, openedTab } = useContext(FullOrSimpleContext);
+    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li, tab } = Theme;
     const [openMenu, setopenMenu] = useState(false);
+    let history = useHistory();
+
 
     const rendernavbarMenu = () => {
         return (
@@ -76,19 +79,28 @@ export const TabBar = (props) => {
     */
     const filter = useCallback(
         (willfilter) => {
-            console.log(willfilter)
-            console.log(openedTab.value)
-            return openedTab.value.filter(item => item.link !== willfilter)
+            //console.log(willfilter)
+            //console.log(openedTab.value)
+            return (JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).filter(item => item.link !== willfilter)
         },
-        [openedTab]
+        []
     )
 
     return (
         <>
             <FixContainer theme={fixContainer.tabBarFull} >
-                {openedTab.value.map((item, index) => (
+                {(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).map((item, index) => (
                     <Tab theme={tab.tabBarFullTab} text={item.name} link={item.link} key={index}
-                        onClick={(e) => { e.stopPropagation(); openedTab.removeByLink(item.link); setItemSession("OpenedTab", JSON.stringify(filter(item.link))) }} />
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setItemSession("OpenedTab", JSON.stringify(filter(item.link)));
+                            if ((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).lenght > 1) {
+                                history.push(JSON.parse(getItemSession("OpenedTab"))[index - 1].link);
+                            } else {
+                                history.push("/");
+                            }
+
+                        }} />
                 ))}
                 <Tab theme={{ ...tab.tabBarFullTab, color: "#f0f0f0", backgroundColor: "#f0f0f0", border: "" }} cancleHide text={"來撐"}></Tab>
             </FixContainer>
