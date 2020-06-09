@@ -1,32 +1,32 @@
-import { Navbar } from '../Components/Navbar';
+import { Navbar } from '../../Components/Navbar';
 import React, { useContext, useState, useRef, useEffect, useCallback } from 'react';
-import { Context, FullOrSimpleContext } from '../Store/store'
-import { FixContainer } from '../Components/Container';
-import { StyledIconButton } from '../Components/Button'
-import { FloatCard } from '../Components/FloatCard'
+import { Context, FullOrSimpleContext } from '../../Store/store'
+import { FixContainer } from '../../Components/Container';
+import { StyledIconButton } from '../../Components/Button'
+import { FloatCard } from '../../Components/FloatCard'
 import MenuIcon from '@material-ui/icons/Menu';
-import { LeftSide } from '../Components/LeftSide';
+import { LeftSide } from '../../Components/LeftSide';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Error404 } from './ErrorPages/404';
-import { Welcome } from './MainPages/Welcome';
-import { UserRoles } from './MainPages/UserRoles';
-import { UserUsers } from './MainPages/UserUsers';
-import { PermissionModule } from './MainPages/PermissionModule';
-import { PermissionPermission } from './MainPages/PermissionPermission';
-import { PermissionAssign } from './MainPages/PermissionAssign';
-import { LocalationCustomer } from './MainPages/LocalationCustomer';
-import { LocalationFootMaster } from './MainPages/LocalationFootMaster';
-import { LocalationShop } from './MainPages/LocalationShop';
-import { OrderOrderList1 } from './MainPages/OrderOrderList1';
-import { OrderOrderList2 } from './MainPages/OrderOrderList2';
-import { OrderOrderList } from './MainPages/OrderOrderList';
-import { DespatchDespatchTable } from './MainPages/DespatchDespatchTable';
-import { DespatchDespatchList } from './MainPages/DespatchDespatchList';
-import { NewFrom } from './MainPages/NewFrom';
-import { SystemMy } from './MainPages/SystemMy';
-import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
-import { setItemSession, getItemSession, removeItemSession, clearSession } from '../SelfHooks/handleSessionStorage';
-import { useArray } from '../SelfHooks/useArray';
+import { Error404 } from '../ErrorPages/404';
+import { Welcome } from './Welcome';
+import { UserRoles } from './UserRoles';
+import { UserUsers } from './UserUsers';
+import { PermissionModule } from './PermissionModule';
+import { PermissionPermission } from './PermissionPermission';
+import { PermissionAssign } from './PermissionAssign';
+import { LocalationCustomer } from './LocalationCustomer';
+import { LocalationFootMaster } from './LocalationFootMaster';
+import { LocalationShop } from './LocalationShop';
+import { OrderOrderList1 } from './OrderOrderList1';
+import { OrderOrderList2 } from './OrderOrderList2';
+import { OrderOrderList } from './OrderOrderList';
+import { DespatchDespatchTable } from './DespatchDespatchTable';
+import { DespatchDespatchList } from './DespatchDespatchList';
+import { NewFrom } from './NewFrom';
+import { SystemMy } from './SystemMy';
+import { setItem, getItem, removeItem, clear } from '../../SelfHooks/handleLocalStorage';
+import { setItemSession, getItemSession, removeItemSession, clearSession } from '../../SelfHooks/handleSessionStorage';
+import { useArray } from '../../SelfHooks/useArray';
 
 export const Home = (props) => {
 

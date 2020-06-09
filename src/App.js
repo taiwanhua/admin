@@ -3,9 +3,9 @@ import { Context } from './Store/store'
 import './App.css';
 import { Navbar } from './Components/Navbar';
 import themes from './Components/Themes';
-import { Home } from './Pages/Home';
+import { Home } from './Pages/MainPages/Home';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Login } from './Pages/Login';
+import { Login } from './Pages/MainPages/Login';
 
 const reducer = (state, action) => {
 

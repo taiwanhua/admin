@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { Container, SubContainer } from '../Components/Container';
-import { Context } from '../Store/store';
-import { useForm } from '../SelfHooks/useForm';
-import { useLoginAsync } from '../SelfHooks/useAsync';
-import { Input } from '../Components/Input';
-import { H6 } from '../Components/Text';
-import { StyledIconButton } from '../Components/Button';
+import { Container, SubContainer } from '../../Components/Container';
+import { Context } from '../../Store/store';
+import { useForm } from '../../SelfHooks/useForm';
+import { useLoginAsync } from '../../SelfHooks/useAsync';
+import { Input } from '../../Components/Input';
+import { H6 } from '../../Components/Text';
+import { StyledIconButton } from '../../Components/Button';
 import { Redirect, useHistory } from 'react-router-dom';
-import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
+import { setItem, getItem, removeItem, clear } from '../../SelfHooks/handleLocalStorage';
 
 export const Login = (props) => {
 
