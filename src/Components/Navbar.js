@@ -14,8 +14,7 @@ import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalSto
 
 export const Navbar = (props) => {
 
-    const { Theme, setTheme, LeftSideData, setLeftSideData, Logined, setLogined } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { Theme, setTheme, LeftSideData, setLeftSideData, Logined, setLogined, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, Switch } = useContext(Context);
     const { subContainer, container, text, ul, li } = Theme;
     let location = useLocation();
     const [openMenu, setopenMenu] = useState(false);
@@ -129,7 +128,7 @@ export const Navbar = (props) => {
                     { text: "Alert6", level: "fatal" },
                 ]}
                 switchs={{ AlertValue, AlertSwitch, AlertOpen, Close: AlertClose }} />}
-            {LogoutValue && <LogoutFloatCard switchs={{ LogoutValue, LogoutSwitch, LogoutOpen, Close: LogoutClose }} yes={() => { removeItem('Auth'); removeItem('LeftSideData'); history.push('/Login') }} no={LogoutClose} />}
+            {LogoutValue && <LogoutFloatCard switchs={{ LogoutValue, LogoutSwitch, LogoutOpen, Close: LogoutClose }} yes={() => { removeItem('Auth'); removeItem('LeftSideData'); Switch(); history.push('/Login') }} no={LogoutClose} />}
 
         </>
     )

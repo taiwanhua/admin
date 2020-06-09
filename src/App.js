@@ -1,11 +1,9 @@
 import React, { useReducer, useState } from 'react';
 import { Context } from './Store/store'
 import './App.css';
-import { Navbar } from './Components/Navbar';
 import themes from './Components/Themes';
-import { Home } from './Pages/MainPages/Home';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { Login } from './Pages/MainPages/Login';
+import { ContextContainer } from './Components/ContextContainer';
+import { useSwitch } from './SelfHooks/useSwitch';
 
 const reducer = (state, action) => {
 
@@ -26,20 +24,23 @@ function App() {
   const [Theme, setTheme] = useReducer(reducer, themes.themeDafault);
   const [LeftSideData, setLeftSideData] = useState([]);
   const [Logined, setLogined] = useState(false);
+  const [FullOrSimple, setFullOrSimple] = useState(true);//供判斷開關側邊欄
+  const [RouteMapFunctionTitle, setRouteMapFunctionTitle] = useState("歡迎頁");//初始登入為歡迎頁
+  const [Value, Switch, Open, Close] = useSwitch();//控制重新渲染路由
+
 
 
   return (
     <>
-      < Context.Provider value={{ Theme, setTheme, LeftSideData, setLeftSideData, Logined, setLogined }}>
-        <Switch>
-          {/* 
-             Date   : 2020-06-04 11:35:34
-             Author : Arhua Ho
-             Content: 登入頁面 與 主頁面切換
-          */}
-          <Route exact path={"/Login"} children={<Login />} />
-          <Home></Home>
-        </Switch>
+      < Context.Provider value={{
+        Theme, setTheme,
+        LeftSideData, setLeftSideData,
+        Logined, setLogined,
+        FullOrSimple, setFullOrSimple,
+        RouteMapFunctionTitle, setRouteMapFunctionTitle,
+        Switch
+      }}>
+        <ContextContainer />
       </Context.Provider>
     </>
   );

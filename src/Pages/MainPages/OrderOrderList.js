@@ -5,8 +5,7 @@ import { TabBar } from '../../Components/TabBar';
 
 export const OrderOrderList = (props) => {
 
-    const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
 
     return (

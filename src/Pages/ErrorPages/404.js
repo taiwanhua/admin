@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import { FixContainer } from '../../Components/Container'
-import { Context, FullOrSimpleContext } from '../../Store/store'
+import { Context } from '../../Store/store'
 
 export const Error404 = (props) => {
 
-    const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
 
     return (

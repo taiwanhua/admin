@@ -11,8 +11,7 @@ import { useSwitch } from '../SelfHooks/useSwitch';
 
 export const TabBar = (props) => {
 
-    const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { Theme, setTheme ,FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle} = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li, tab } = Theme;
     const [openMenu, setopenMenu] = useState(false);
     let history = useHistory();

@@ -5,10 +5,8 @@ import { TabBar } from '../../Components/TabBar';
 
 export const OrderOrderList1 = (props) => {
 
-    const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
-
     return (
         <>
             <FixContainer theme={{ ...fixContainer.mainPageFull, ...(FullOrSimple ? {} : { left: '4rem', width: 'calc( 100% - 4rem )' }) }}>

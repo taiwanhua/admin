@@ -14,7 +14,7 @@ export const Login = (props) => {
     const [FullOrSimple, setFullOrSimple] = useState(true);//供判斷開關側邊欄
     const [RouteMapFunctionTitle, setRouteMapFunctionTitle] = useState("歡迎頁");//初始登入為歡迎頁
 
-    const { Theme, setTheme, LeftSideData, setLeftSideData, Logined, setLogined } = useContext(Context);
+    const { Theme, setTheme, Logined, setLogined, Switch } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton } = Theme;
 
     const [ID, IDhandler, IDregExpResult] = useForm("", "^[a-zA-Z0-9]{0,5}$");
@@ -48,10 +48,10 @@ export const Login = (props) => {
 
             })
             .finally(() => {
-
+                Switch();//觸發LS路由重新更新
             });
 
-    }, [history])
+    }, [history, Switch])
 
     const [execute] = useLoginAsync(loginVerification, false);
 

@@ -3,7 +3,6 @@ import { Context, FullOrSimpleContext } from '../Store/store'
 import { FixContainer } from '../Components/Container';
 import { StyledIconButton } from '../Components/Button'
 
-import styled from 'styled-components'
 import PeopleIcon from '@material-ui/icons/People';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -19,11 +18,8 @@ import { setItemSession, getItemSession, removeItemSession, clearSession } from 
 
 export const LeftSide = (props) => {
 
-    const { Theme, setTheme } = useContext(Context);
-    const { FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(FullOrSimpleContext);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
-    const [LeftSideData, setLeftSideData] = useState([]);
-
 
     const [State, setState] = useState(true);//控管展開選單
     const [Obj, setObj] = useState(true);//初始值佔存控管展開選單
@@ -39,14 +35,8 @@ export const LeftSide = (props) => {
     }
 
     useEffect(() => {
-        if (getItem("LeftSideData") !== null) {
-            setLeftSideData(JSON.parse(getItem("LeftSideData")));
-        }
-    }, [setLeftSideData])
-
-    useEffect(() => {
         let obj = {};
-        LeftSideData.forEach((item, index) => {
+        (JSON.parse(getItem("LeftSideData")) ?? []).forEach((item, index) => {
             if (!item.link) {
                 obj[item.name] = false;
             }
@@ -54,7 +44,7 @@ export const LeftSide = (props) => {
         //console.log(obj)
         setState(() => obj);
         setObj(() => obj);
-    }, [LeftSideData])
+    }, [setState, setObj])
 
     useEffect(() => {
         // 切換Full或Simple重置選單
@@ -194,9 +184,9 @@ export const LeftSide = (props) => {
             <FixContainer
                 theme={{ ...(FullOrSimple ? fixContainer.leftSideFull : fixContainer.leftSideSimple) }}
             >
-                {FullOrSimple ? renderFullList(LeftSideData) : renderSimpleList(LeftSideData)}
+                {FullOrSimple ? renderFullList((JSON.parse(getItem("LeftSideData")) ?? [])) : renderSimpleList((JSON.parse(getItem("LeftSideData")) ?? []))}
             </FixContainer>
-            {!FullOrSimple && renderSimpleListSub(LeftSideData)}
+            {!FullOrSimple && renderSimpleListSub((JSON.parse(getItem("LeftSideData")) ?? []))}
 
         </>
     )
