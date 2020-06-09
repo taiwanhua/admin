@@ -11,7 +11,7 @@ import { useSwitch } from '../SelfHooks/useSwitch';
 
 export const TabBar = (props) => {
 
-    const { Theme, setTheme ,FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle} = useContext(Context);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, Switch } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li, tab } = Theme;
     const [openMenu, setopenMenu] = useState(false);
     let history = useHistory();
@@ -90,15 +90,23 @@ export const TabBar = (props) => {
             <FixContainer theme={fixContainer.tabBarFull} >
                 {(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).map((item, index) => (
                     <Tab theme={tab.tabBarFullTab} text={item.name} link={item.link} key={index}
-                        onClick={(e) => {
+                        tabOnClick={(e) => {
+                            history.push(item.link);
+                        }}
+                        cancleOnClick={(e) => {
                             e.stopPropagation();
-                            setItemSession("OpenedTab", JSON.stringify(filter(item.link)));
-                            if ((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).lenght > 1) {
-                                history.push(JSON.parse(getItemSession("OpenedTab"))[index - 1].link);
+
+                            if ((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length > 1) {
+                                let len = (JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length;
+                                history.push(JSON.parse(getItemSession("OpenedTab"))[
+                                    (index - 1 === len) ? index - 2 : (index > 0 ? index - 1 : index + 1)
+                                ].link);
+                                Switch();
                             } else {
+                                console.log((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length)
                                 history.push("/");
                             }
-
+                            setItemSession("OpenedTab", JSON.stringify(filter(item.link)));
                         }} />
                 ))}
                 <Tab theme={{ ...tab.tabBarFullTab, color: "#f0f0f0", backgroundColor: "#f0f0f0", border: "" }} cancleHide text={"來撐"}></Tab>

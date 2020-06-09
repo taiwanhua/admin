@@ -11,42 +11,41 @@ const TabBase = (props) => {
 
     return (
         <>
-            <Link to={props.link ?? "#"}>
-                <span className={props.className}>
-                    {props.text}
-                    <StyledIconButton theme={{
-                        position: "relative",
-                        right: "-.9rem",
-                        top: "-.1rem",
-                        padding: 0,
-                        height: "0.8rem",
-                        width: "0.8rem",
-                    }} onMouseLeave={() => { setEnter(false) }}
-                        onMouseEnter={() => { setEnter(true) }}
-                        onClick={props.onClick}
-                    >
 
-                        {!props.cancleHide && (Enter ? (
-                            <CancelIcon style={{
-                                height: "0.8rem",
-                                width: "0.8rem",
-                                color: "#f56c6c",
-                            }}></CancelIcon>
-                        ) : (
-                                <HighlightOffIcon
+            <span className={props.className} onClick={props.tabOnClick}>
+                {props.text}
+                <StyledIconButton theme={{
+                    position: "relative",
+                    right: "-.9rem",
+                    top: "-.1rem",
+                    padding: 0,
+                    height: "0.8rem",
+                    width: "0.8rem",
+                }} onMouseLeave={() => { setEnter(false) }}
+                    onMouseEnter={() => { setEnter(true) }}
+                    onClick={props.cancleOnClick}
+                >
 
-                                    style={{
-                                        height: "0.8rem",
-                                        width: "0.8rem",
-                                        color: "#f56c6c",
-                                    }}></HighlightOffIcon>
-                            ))}
-                    </StyledIconButton>
+                    {!props.cancleHide && (Enter ? (
+                        <CancelIcon style={{
+                            height: "0.8rem",
+                            width: "0.8rem",
+                            color: "#f56c6c",
+                        }}></CancelIcon>
+                    ) : (
+                            <HighlightOffIcon
 
-                    {props.children}
+                                style={{
+                                    height: "0.8rem",
+                                    width: "0.8rem",
+                                    color: "#f56c6c",
+                                }}></HighlightOffIcon>
+                        ))}
+                </StyledIconButton>
 
-                </span>
-            </Link>
+                {props.children}
+
+            </span>
         </>
     )
 }
