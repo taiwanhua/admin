@@ -16,7 +16,7 @@ const logoutFixContainerTheme = {
     //overflowY: 'scroll',
     //overflowX: 'scroll',
     backgroundColor: '#40404080',
-    zIndex: 100,
+    zIndex: 400,
 }
 
 const logoutContainerTheme = {
@@ -114,7 +114,7 @@ const alertFixContainerTheme = {
     //overflowY: 'scroll',
     //overflowX: 'scroll',
     backgroundColor: '#40404080',
-    zIndex: 100,
+    zIndex: 400,
 }
 
 const alertContainerTheme = {
