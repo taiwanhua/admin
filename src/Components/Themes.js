@@ -112,12 +112,25 @@ export default {
                 overflowY: 'scroll',
                 overflowX: 'hidden',
             },
-            mainPageFull: {
+            tabBar: {
                 position: 'fixed',
-                height: 'calc(100% - 4rem)',
+                height: '2rem',
                 width: 'calc( 100% - 13.5rem )',
                 left: '13.5rem',
                 top: "4rem",
+                bottom: 0,
+                overflowY: 'scroll',
+                overflowX: 'scroll',
+                backgroundColor: '#fff',
+                scrollHeight: ".8rem",
+                zIndex: "300"
+            },
+            mainPageFull: {
+                position: 'fixed',
+                height: 'calc(100% - 6rem)',
+                width: 'calc( 100% - 13.5rem )',
+                left: '13.5rem',
+                top: "6rem",
                 bottom: 0,
                 overflowY: 'scroll',
                 overflowX: 'scroll',
@@ -167,7 +180,8 @@ export default {
                 width: "inherit",
                 backgroundColor: "#f0f0f0",
                 scrollHeight: ".3rem",
-                scrollUnhoverBackgroundColor: "#f0f0f000"
+                scrollUnhoverBackgroundColor: "#f0f0f000",
+                zIndex: "inherit"
             },
         },
         /* 
@@ -285,7 +299,7 @@ export default {
                 top: "3rem",
                 backgroundColor: "#fff",
                 right: "2.4rem",
-                zIndex: 1,
+                zIndex: 301,
                 width: '6rem',
                 borderRadius: "0.3rem",
                 border: "1px solid #ebeef5",

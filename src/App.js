@@ -4,6 +4,7 @@ import './App.css';
 import themes from './Components/Themes';
 import { ContextContainer } from './Components/ContextContainer';
 import { useSwitch } from './SelfHooks/useSwitch';
+import { useLocation } from 'react-router-dom';
 
 const reducer = (state, action) => {
 
@@ -27,9 +28,9 @@ function App() {
   const [FullOrSimple, setFullOrSimple] = useState(true);//供判斷開關側邊欄
   const [RouteMapFunctionTitle, setRouteMapFunctionTitle] = useState("歡迎頁");//初始登入為歡迎頁
   const [Value, Switch, Open, Close] = useSwitch();//控制重新渲染路由
-  const [TabValue, TabSwitch, TabOpen, TabClose] = useSwitch();//控制重新渲染路由
-  const [TabScroll, setTabScroll] = useState(0);
-  const [ToggleNameAndLink, setToggleNameAndLink] = useState({ name: "歡迎頁", link: "/" });
+  const [TabValue, TabSwitch, TabOpen, TabClose] = useSwitch(true);//控制重新渲染路由
+  let location = useLocation();
+  const [ToggleNameAndLink, setToggleNameAndLink] = useState({ name: "歡迎頁", link: location.pathname });//讓每次從新整理時都能定位到對應Tab
 
 
 
@@ -41,7 +42,7 @@ function App() {
         Logined, setLogined,
         FullOrSimple, setFullOrSimple,
         RouteMapFunctionTitle, setRouteMapFunctionTitle,
-        Switch, TabValue, TabOpen, TabClose, TabScroll, setTabScroll,
+        Switch, TabValue, TabOpen, TabClose,
         ToggleNameAndLink, setToggleNameAndLink
       }}>
         <ContextContainer />

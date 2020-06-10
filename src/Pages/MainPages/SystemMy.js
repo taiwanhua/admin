@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { FixContainer } from '../../Components/Container'
 import { Context, FullOrSimpleContext } from '../../Store/store'
-import { TabBar } from '../../Components/TabBar';
 
 export const SystemMy = (props) => {
 
@@ -11,9 +10,8 @@ export const SystemMy = (props) => {
     return (
         <>
             <FixContainer theme={{ ...fixContainer.mainPageFull, ...(FullOrSimple ? {} : { left: '4rem', width: 'calc( 100% - 4rem )' }) }}>
-                <TabBar></TabBar>
                 <div style={{
-                    height: '10rem',color:"red"
+                    height: '10rem', color: "red"
                 }}><span>SystemMy</span></div>
                 <div style={{
                     height: '10rem',

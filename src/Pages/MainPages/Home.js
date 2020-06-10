@@ -3,8 +3,6 @@ import { Context, FullOrSimpleContext } from '../../Store/store'
 import { FixContainer } from '../../Components/Container';
 import { setItemSession, getItemSession, removeItemSession, clearSession } from '../../SelfHooks/handleSessionStorage';
 
-import { TabBar } from '../../Components/TabBar';
-
 export const Home = (props) => {
 
     const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(Context);
@@ -15,12 +13,9 @@ export const Home = (props) => {
         setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }]))
     }
 
-
     return (
         <>
             <FixContainer theme={{ ...fixContainer.mainPageFull, ...(FullOrSimple ? {} : { left: '4rem', width: 'calc( 100% - 4rem )' }) }}>
-                <TabBar></TabBar>
-
                 {/* 真正內容 */}
                 <div style={{
                     margin: "2rem 0 0 0",

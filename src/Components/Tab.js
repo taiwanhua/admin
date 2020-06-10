@@ -55,7 +55,8 @@ const TabBase = (props) => {
                         <FiberManualRecordIcon style={{
                             height: "0.6rem",
                             width: "0.6rem",
-                            color: "#f56c6c",
+                            color: "#2d8cf0",
+                            //color: "#f56c6c",
                         }} />
                     </StyledIconButton>
                 }

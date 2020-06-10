@@ -11,7 +11,7 @@ import { useSwitch } from '../SelfHooks/useSwitch';
 
 export const TabBar = (props) => {
 
-    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, Switch, ToggleNameAndLink, setToggleNameAndLink, TabValue, TabClose, TabScroll, setTabScroll } = useContext(Context);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, Switch, ToggleNameAndLink, setToggleNameAndLink, TabValue, TabClose } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li, tab } = Theme;
     const [openMenu, setopenMenu] = useState(false);
     let history = useHistory();
@@ -23,6 +23,7 @@ export const TabBar = (props) => {
            Content: 控制初始tab滾動
         */
         let element = document.getElementById("tabBarContainer");
+        console.log(TabValue)
         if (TabValue) {
             let count = 0;
             let maxScrollLeft = element.scrollWidth - element.clientWidth;
@@ -33,16 +34,14 @@ export const TabBar = (props) => {
                 }
                 count++;
             })
-        } else {
-            element.scrollLeft = TabScroll;
         }
-    }, [])
+    })
 
     const rendernavbarMenu = () => {
         return (
             <Ul onMouseEnter={() => { setopenMenu(true); }}
                 onMouseLeave={() => { setopenMenu(false); }}
-                theme={{ ...ul.navbarMenuUl, top: "5.4rem", right: ".6rem", position: "fixed" }}>
+                theme={{ ...ul.navbarMenuUl, top: "5.4rem", right: ".6rem", position: "fixed", zIndex: "inherit", boxShadow: "0 2px 12px 0 #00000040" }}>
                 {[
                     {
                         text: "關閉其他",
@@ -128,7 +127,7 @@ export const TabBar = (props) => {
                         tabOnClick={(e) => {
                             setToggleNameAndLink({ name: item.name, link: item.link });
                             TabClose();//不觸發滾動
-                            setTabScroll(document.getElementById("tabBarContainer").scrollLeft);//若非側邊攔觸發則引用現在Scroll
+                            //setTabScroll(document.getElementById("tabBarContainer").scrollLeft);//若非側邊攔觸發則引用現在Scroll
                             history.push(item.link);
                         }}
                         cancleOnClick={(e) => {
@@ -172,7 +171,8 @@ export const TabBar = (props) => {
                 backgroundColor: "#f0f0f0",
                 height: "1.8rem", right: "0rem", color: "#495060",
                 width: "3rem",
-                position: "fixed"
+                position: "fixed",
+                zIndex: "inherit"
 
             }} onClick={() => { setopenMenu(!openMenu) }} onMouseLeave={() => { setopenMenu(false); }}>
                 <ArrowDropDownIcon />

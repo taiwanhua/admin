@@ -45,7 +45,7 @@ const urlMapping = {
 export const Routers = React.memo((props) => {
     return (
         <>
-            {console.log(getItem("LeftSideData"))}
+            {/*console.log(getItem("LeftSideData"))*/}
             <Switch>
                 {/* 
                    Date   : 2020-06-05 10:17:23

@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { FixContainer } from '../../Components/Container'
 import { Context, FullOrSimpleContext } from '../../Store/store'
-import { TabBar } from '../../Components/TabBar';
 
 export const OrderOrderList1 = (props) => {
 
@@ -10,7 +9,6 @@ export const OrderOrderList1 = (props) => {
     return (
         <>
             <FixContainer theme={{ ...fixContainer.mainPageFull, ...(FullOrSimple ? {} : { left: '4rem', width: 'calc( 100% - 4rem )' }) }}>
-                <TabBar></TabBar>
                 <div style={{
                     height: '10rem',
                 }}>OrderOrderList1</div>
