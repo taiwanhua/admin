@@ -32,7 +32,7 @@ export const Navbar = (props) => {
         "/Localation/FootMaster": "門市與人員名單 / 足健師名單",
         "/Localation/Shop": "門市與人員名單 / 門市名單",
         "/Order/OrderList1": "預約狀況 / 預約件數",
-        "Order/OrderList2": "預約狀況 / 預約率總覽",
+        "/Order/OrderList2": "預約狀況 / 預約率總覽",
         "/Order/OrderList": "預約狀況 / 預約清單",
         "/Despatch/DespatchTable": "任務調度 / 派遣單總覽",
         "/Despatch/DespatchList": "任務調度 / 足健師派遣",

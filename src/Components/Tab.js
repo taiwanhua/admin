@@ -79,6 +79,6 @@ export const Tab = styled(TabBase).attrs((props) => ({}))`
     display: ${props => props?.theme?.display ?? 'initial'}; 
     text-align: ${props => props?.theme?.textAlign ?? 'initial'}; 
     margin: ${props => props?.theme?.margin ?? 'initial'}; 
-    cursor: pointer;
+    cursor: ${props => props?.theme?.cursor ?? 'pointer'};
 
 `

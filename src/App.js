@@ -27,6 +27,9 @@ function App() {
   const [FullOrSimple, setFullOrSimple] = useState(true);//供判斷開關側邊欄
   const [RouteMapFunctionTitle, setRouteMapFunctionTitle] = useState("歡迎頁");//初始登入為歡迎頁
   const [Value, Switch, Open, Close] = useSwitch();//控制重新渲染路由
+  const [TabValue, TabSwitch, TabOpen, TabClose] = useSwitch();//控制重新渲染路由
+  const [TabScroll, setTabScroll] = useState(0);
+  const [ToggleNameAndLink, setToggleNameAndLink] = useState({ name: "歡迎頁", link: "/" });
 
 
 
@@ -38,7 +41,8 @@ function App() {
         Logined, setLogined,
         FullOrSimple, setFullOrSimple,
         RouteMapFunctionTitle, setRouteMapFunctionTitle,
-        Switch
+        Switch, TabValue, TabOpen, TabClose, TabScroll, setTabScroll,
+        ToggleNameAndLink, setToggleNameAndLink
       }}>
         <ContextContainer />
       </Context.Provider>

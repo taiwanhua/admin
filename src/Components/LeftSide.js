@@ -18,7 +18,7 @@ import { setItemSession, getItemSession, removeItemSession, clearSession } from 
 
 export const LeftSide = (props) => {
 
-    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle } = useContext(Context);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, ToggleNameAndLink, setToggleNameAndLink, TabOpen } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li } = Theme;
 
     const [State, setState] = useState(true);//控管展開選單
@@ -56,6 +56,7 @@ export const LeftSide = (props) => {
        Date   : 2020-06-08 16:46:30
        Author : Arhua Ho
        Content: 檢查是否已存在分頁列中
+       @return : Boolean ； 回傳值 : 已存在arr中為false，不存在為true
     */
     const checkoutExist = useCallback(
         (arr, pushItem) => {
@@ -83,6 +84,8 @@ export const LeftSide = (props) => {
                                         if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
                                             setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                         }
+                                        setToggleNameAndLink({ name: item.name, link: item.link });
+                                        TabOpen();
                                     }
                                     setState({ ...State, [item.name]: !State[item.name] });
                                 }}>
@@ -99,6 +102,8 @@ export const LeftSide = (props) => {
                                                     if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
                                                         setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                                     }
+                                                    setToggleNameAndLink({ name: item.name, link: item.link });
+                                                    TabOpen();
                                                 }}>
                                                     {iconMap[item.icon]}
                                                     <Li theme={li.leftSideFullLiSub} >{item.name}</Li>
@@ -130,6 +135,8 @@ export const LeftSide = (props) => {
                                         if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
                                             setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                         }
+                                        setToggleNameAndLink({ name: item.name, link: item.link });
+                                        TabOpen();
                                     }
                                     setState({ ...State, [item.name]: true });
                                 }}
@@ -164,6 +171,8 @@ export const LeftSide = (props) => {
                                             if (checkoutExist((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link })) {
                                                 setItemSession("OpenedTab", JSON.stringify([...(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]), { name: item.name, link: item.link }]));
                                             }
+                                            setToggleNameAndLink({ name: item.name, link: item.link });
+                                            TabOpen();
                                         }}>
                                             {iconMap[item.icon]}
                                             <Li theme={li.leftSideFullLi} >{item.name}</Li>

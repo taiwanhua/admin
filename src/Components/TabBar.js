@@ -1,4 +1,4 @@
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState, useCallback, useEffect } from 'react';
 import { FixContainer } from './Container';
 import { Tab } from './Tab';
 import { Button } from '@material-ui/core';
@@ -11,10 +11,32 @@ import { useSwitch } from '../SelfHooks/useSwitch';
 
 export const TabBar = (props) => {
 
-    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, Switch } = useContext(Context);
+    const { Theme, setTheme, FullOrSimple, setFullOrSimple, RouteMapFunctionTitle, setRouteMapFunctionTitle, Switch, ToggleNameAndLink, setToggleNameAndLink, TabValue, TabClose, TabScroll, setTabScroll } = useContext(Context);
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li, tab } = Theme;
     const [openMenu, setopenMenu] = useState(false);
     let history = useHistory();
+
+    useEffect(() => {
+        /* 
+           Date   : 2020-06-10 17:12:22
+           Author : Arhua Ho
+           Content: 控制初始tab滾動
+        */
+        let element = document.getElementById("tabBarContainer");
+        if (TabValue) {
+            let count = 0;
+            let maxScrollLeft = element.scrollWidth - element.clientWidth;
+            (JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).forEach((item, index) => {
+                if (ToggleNameAndLink.link === item.link) {
+                    //console.log(document.getElementById("tabBarContainer").scrollLeft)
+                    element.scrollLeft = (count * 100 > maxScrollLeft) ? maxScrollLeft : count * 100;
+                }
+                count++;
+            })
+        } else {
+            element.scrollLeft = TabScroll;
+        }
+    }, [])
 
     const rendernavbarMenu = () => {
         return (
@@ -22,8 +44,22 @@ export const TabBar = (props) => {
                 onMouseLeave={() => { setopenMenu(false); }}
                 theme={{ ...ul.navbarMenuUl, top: "5.4rem", right: ".6rem", position: "fixed" }}>
                 {[
-                    { text: "關閉其他",  /*onClick: AlertOpen*/ },
-                    { text: "關閉所有", onClick: () => { setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }])); history.push("/"); } }
+                    {
+                        text: "關閉其他",
+                        onClick: () => {
+                            setToggleNameAndLink((T) => T);
+                            setItemSession("OpenedTab", JSON.stringify([ToggleNameAndLink]));
+                            history.push(ToggleNameAndLink.link);
+                        },
+                    },
+                    {
+                        text: "關閉所有",
+                        onClick: () => {
+                            setToggleNameAndLink({ name: "歡迎頁", link: "/" });
+                            setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }]));
+                            history.push("/");
+                        },
+                    }
                 ].map((item, index) => {
                     return (
                         <React.Fragment key={index}>
@@ -72,12 +108,10 @@ export const TabBar = (props) => {
     /* 
        Date   : 2020-06-08 17:31:33
        Author : Arhua Ho
-       Content: 更新Session時處理更新項目
+       Content: 更新Session時處理更新項目，去除掉陣列中 link 等於 willfilter 的項目
     */
     const filter = useCallback(
         (willfilter) => {
-            //console.log(willfilter)
-            //console.log(openedTab.value)
             return (JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).filter(item => item.link !== willfilter)
         },
         []
@@ -85,11 +119,16 @@ export const TabBar = (props) => {
 
     return (
         <>
-            <FixContainer theme={fixContainer.tabBarFull} >
+            <FixContainer theme={fixContainer.tabBarFull} id={"tabBarContainer"}
+            /*onScroll={() => { console.log(document.getElementById("tabBarContainer").scrollLeft) }}*/
+            >
                 {(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).map((item, index) => (
                     <Tab theme={tab.tabBarFullTab} text={item.name} link={item.link} key={index}
-                        active={false}
+                        active={ToggleNameAndLink.link === item.link}
                         tabOnClick={(e) => {
+                            setToggleNameAndLink({ name: item.name, link: item.link });
+                            TabClose();//不觸發滾動
+                            setTabScroll(document.getElementById("tabBarContainer").scrollLeft);//若非側邊攔觸發則引用現在Scroll
                             history.push(item.link);
                         }}
                         cancleOnClick={(e) => {
@@ -97,18 +136,35 @@ export const TabBar = (props) => {
 
                             if ((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length > 1) {
                                 let len = (JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length;
+
+                                /* 
+                                   Date   : 2020-06-10 12:12:22
+                                   Author : Arhua Ho
+                                   Content: 更改Toggle標記
+                                */
+                                let forToggle = {
+                                    link: JSON.parse(getItemSession("OpenedTab"))[
+                                        (index - 1 === len) ? index - 2 : (index > 0 ? index - 1 : index + 1)
+                                    ].link,
+                                    name: JSON.parse(getItemSession("OpenedTab"))[
+                                        (index - 1 === len) ? index - 2 : (index > 0 ? index - 1 : index + 1)
+                                    ].name,
+                                }
+                                setToggleNameAndLink(forToggle);
                                 history.push(JSON.parse(getItemSession("OpenedTab"))[
                                     (index - 1 === len) ? index - 2 : (index > 0 ? index - 1 : index + 1)
                                 ].link);
                                 Switch();
                             } else {
-                                console.log((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length)
+                                //console.log((JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).length)
+                                setToggleNameAndLink({ name: "歡迎頁", link: "/" });
+                                setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }]));
                                 history.push("/");
                             }
                             setItemSession("OpenedTab", JSON.stringify(filter(item.link)));
                         }} />
                 ))}
-                <Tab theme={{ ...tab.tabBarFullTab, color: "#f0f0f0", backgroundColor: "#f0f0f0", border: "" }} cancleHide text={"來撐"}></Tab>
+                <Tab theme={{ ...tab.tabBarFullTab, color: "#f0f0f0", backgroundColor: "#f0f0f0", border: "", cursor: "default" }} cancleHide text={"　　"}></Tab>
             </FixContainer>
 
             {/* 關閉所有、關閉其他按紐 */}
