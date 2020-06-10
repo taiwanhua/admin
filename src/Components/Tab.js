@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { StyledIconButton } from './Button';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 const TabBase = (props) => {
 
@@ -42,7 +43,22 @@ const TabBase = (props) => {
                                 }}></HighlightOffIcon>
                         ))}
                 </StyledIconButton>
-
+                {props.active &&
+                    <StyledIconButton theme={{
+                        position: "relative",
+                        right: `${(props.text.length * 0.8 + 1.45) + 'rem'}`,
+                        top: "-.1rem",
+                        padding: 0,
+                        height: "0.6rem",
+                        width: "0.6rem",
+                    }} >
+                        <FiberManualRecordIcon style={{
+                            height: "0.6rem",
+                            width: "0.6rem",
+                            color: "#f56c6c",
+                        }} />
+                    </StyledIconButton>
+                }
                 {props.children}
 
             </span>
@@ -63,6 +79,6 @@ export const Tab = styled(TabBase).attrs((props) => ({}))`
     display: ${props => props?.theme?.display ?? 'initial'}; 
     text-align: ${props => props?.theme?.textAlign ?? 'initial'}; 
     margin: ${props => props?.theme?.margin ?? 'initial'}; 
-
+    cursor: pointer;
 
 `

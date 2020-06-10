@@ -16,7 +16,6 @@ export const TabBar = (props) => {
     const [openMenu, setopenMenu] = useState(false);
     let history = useHistory();
 
-
     const rendernavbarMenu = () => {
         return (
             <Ul onMouseEnter={() => { setopenMenu(true); }}
@@ -24,8 +23,7 @@ export const TabBar = (props) => {
                 theme={{ ...ul.navbarMenuUl, top: "5.4rem", right: ".6rem", position: "fixed" }}>
                 {[
                     { text: "關閉其他",  /*onClick: AlertOpen*/ },
-                    { text: "關閉所有", link: "/System/My" },
-                    { text: "退出登錄", /*onClick: LogoutOpen*/ }
+                    { text: "關閉所有", onClick: () => { setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }])); history.push("/"); } }
                 ].map((item, index) => {
                     return (
                         <React.Fragment key={index}>
@@ -90,6 +88,7 @@ export const TabBar = (props) => {
             <FixContainer theme={fixContainer.tabBarFull} >
                 {(JSON.parse(getItemSession("OpenedTab")) ?? [{ name: "歡迎頁", link: "/" }]).map((item, index) => (
                     <Tab theme={tab.tabBarFullTab} text={item.name} link={item.link} key={index}
+                        active={false}
                         tabOnClick={(e) => {
                             history.push(item.link);
                         }}

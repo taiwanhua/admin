@@ -11,7 +11,7 @@ export const Home = (props) => {
     const { subContainer, container, text, fixContainer, styledIconButton, ul, li, tab } = Theme;
 
     //防止登入時 OpenedTab 未設置
-    if (sessionStorage.getItem("OpenedTab") === null) {
+    if (getItemSession("OpenedTab") === null) {
         setItemSession("OpenedTab", JSON.stringify([{ name: "歡迎頁", link: "/" }]))
     }
 

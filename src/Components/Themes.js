@@ -354,7 +354,6 @@ export default {
                 backgroundColor: "#fff",
                 fontSize: ".8rem",
                 height: "1.5rem",
-                width: "10rem",
                 display: "inline-block",
                 textAlign: "center",
                 margin: ".1rem .5rem 0 0 "
