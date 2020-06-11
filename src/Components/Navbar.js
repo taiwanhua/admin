@@ -11,6 +11,7 @@ import { Ul, Li } from './List';
 import { useSwitch } from '../SelfHooks/useSwitch';
 import { LogoutFloatCard, AlertFloatCard } from './FloatCard';
 import { setItem, getItem, removeItem, clear } from '../SelfHooks/handleLocalStorage';
+import { navbarTitleMapping } from '../Mappings/Mappings.js';
 
 export const Navbar = (props) => {
 
@@ -21,26 +22,6 @@ export const Navbar = (props) => {
     const [AlertValue, AlertSwitch, AlertOpen, AlertClose] = useSwitch();
     const [LogoutValue, LogoutSwitch, LogoutOpen, LogoutClose] = useSwitch();
     let history = useHistory();
-
-    const navbarTitleMapping = {
-        "/User/Roles": "用戶角色管理 / 角色管理",
-        "/User/Users": "用戶角色管理 / 用戶管理",
-        "/Permission/Module": "菜單權限管理 / 接口管理",
-        "/Permission/Permission": "菜單權限管理 / 菜單管理",
-        "/Permission/Assign": "菜單權限管理 / 權限分配",
-        "/Localation/Customer": "門市與人員名單 / 顧客名單",
-        "/Localation/FootMaster": "門市與人員名單 / 足健師名單",
-        "/Localation/Shop": "門市與人員名單 / 門市名單",
-        "/Order/OrderList1": "預約狀況 / 預約件數",
-        "/Order/OrderList2": "預約狀況 / 預約率總覽",
-        "/Order/OrderList": "預約狀況 / 預約清單",
-        "/Despatch/DespatchTable": "任務調度 / 派遣單總覽",
-        "/Despatch/DespatchList": "任務調度 / 足健師派遣",
-        "/New/From": "新增問券",
-        "/System/My": "系統管理 / 個人中心",
-        "/404": "無此分頁",
-        "/": "歡迎您",
-    };
 
     const rendernavbarMenu = () => {
         return (
